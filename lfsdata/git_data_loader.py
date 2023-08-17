@@ -1,12 +1,32 @@
 import logging
 import os
 import pathlib
-import requests
 import urllib.parse
+import requests
 from tqdm import tqdm
 
 
 class DataLoader:
+    """
+
+    The DataLoader class is responsible for downloading files from GitLab and GitHub.
+
+    Attributes:
+    - logger: A logger instance for logging messages.
+    - headers: A dictionary containing the headers for the HTTP requests.
+
+    Methods:
+    - __init__(self): Initializes a new instance of the DataLoader class.
+    - gitlab_download(self, host, project_id, branch_name, file_path):
+        Downloads a file from GitLab and saves it to the local filesystem.
+    - github_download(self, host, project_id, branch_name, file_path):
+        Downloads a file from GitHub and saves it to the local filesystem.
+    - __file_write(self, destination, response):
+        Writes the response content to a file specified by the destination path.
+    - __make_request(self, lfs_url): Sends a GET request to the specified URL and returns the response object.
+
+    """
+
     def __init__(self):
         """
         Initializes a new instance of the DataLoader class.
@@ -17,7 +37,7 @@ class DataLoader:
             "Private-Token": os.getenv("GITLAB_ACCESS_TOKEN")
         }
         if not self.headers["Private-Token"]:
-            self.logger.warning(f"Access token didn't set")
+            self.logger.warning("Access token didn't set")
 
     def gitlab_download(self, host: str, project_id: int, branch_name: str, file_path: str) -> str | None:
         """
@@ -43,20 +63,32 @@ class DataLoader:
                       f"/raw?ref={branch_name}&lfs=True"
             response = self.__make_request(lfs_url)
             if response.status_code == 200:
-                self.logger.debug(f"Request successful!")
+                self.logger.debug("Request successful!")
                 self.__file_write(temp_destination, response)
             else:
                 self.logger.debug(
                     f"Request failed with status code: {response.status_code}\nResponse Text: {response.text}")
             os.rename(temp_destination, destination)
             return str(destination)
-        except Exception as e:
+        except Exception as exception:
             self.logger.debug(
-                f"Downloading from {host}/{project_id}/{branch_name}/{file_path} failed", e)
+                f"Downloading from {host}/{project_id}/{branch_name}/{file_path} failed", exception)
             return None
 
     def github_download(self, host: str, project_id: int, branch_name: str, file_path: str) -> str | None:
-        # TODO
+        """
+        Downloads a file from a GitHub repository.
+
+        Args:
+            host (str): The GitHub host, e.g. "https://github.com".
+            project_id (int): The project ID or repository name.
+            branch_name (str): The branch name.
+            file_path (str): The path to the file relative to the root directory of the repository.
+
+        Returns:
+            str | None: The local file path if the download is successful, else None.
+
+        """
         pass
 
     @staticmethod
@@ -68,12 +100,12 @@ class DataLoader:
         :param response: The response object containing the content to write.
         :return: None
         """
-        with open(destination, 'wb') as f:
+        with open(destination, 'wb') as dest_file:
             total_length = int(response.headers.get('content-length'))
             chunks = tqdm(response.iter_content(chunk_size=1024), total=(total_length / 1024) + 1)
             for chunk in filter(None, chunks):
-                f.write(chunk)
-                f.flush()
+                dest_file.write(chunk)
+                dest_file.flush()
 
     def __make_request(self, lfs_url: str) -> requests.Response:
         """
