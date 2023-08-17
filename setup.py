@@ -8,7 +8,7 @@ changelist = os.environ['changelist']
 with open("README.md", "r", encoding="utf8") as fh:
     long_description = fh.read()
 setup(
-    name="majd.datasets.qomnet",
+    name="lfsdata",
     version=fr"0.0.0{changelist}",
     author="Arusha Developers",
     author_email="info@arusha.dev",
@@ -16,7 +16,7 @@ setup(
     maintainer_email="khaledihkh@gmail.com",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://git.arusha.dev/majd/datasets/el",
+    url="https://github.com/arushadev/lfsdata",
     packages=find_packages(),
     namespace_packages=['el'],
     install_requires=[

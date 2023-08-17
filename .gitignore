@@ -7,7 +7,6 @@
 out
 gen
 *.json
-*.txt
 *.zip
 *.jsonl
 ./data/*
