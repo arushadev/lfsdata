@@ -1,15 +1,12 @@
 """Install packages as defined in this file into the Python environment."""
-import os
 
 from setuptools import setup, find_packages
-
-changelist = os.environ['changelist']
 
 with open("README.md", "r", encoding="utf8") as fh:
     long_description = fh.read()
 setup(
     name="lfsdata",
-    version=fr"0.0.0{changelist}",
+    version="0.0.1",
     author="Arusha Developers",
     author_email="info@arusha.dev",
     maintainer="Hamed Khademi Khaledi",
@@ -18,7 +15,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/arushadev/lfsdata",
     packages=find_packages(),
-    namespace_packages=['el'],
+    namespace_packages=['lfsdata'],
     install_requires=[
         "setuptools>=45.0",
         "coloredlogs",
