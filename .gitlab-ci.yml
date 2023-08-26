@@ -1,0 +1,7 @@
+include:
+  - project: 'utils/cicd/templates'
+    ref: main
+    file: 'nexus3/python-template.yml'
+  - project: 'utils/cicd/templates'
+    ref: main
+    file: 'nexus3/sonar-template.yml'
