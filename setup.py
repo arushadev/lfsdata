@@ -19,7 +19,7 @@ setup(
     install_requires=[
         "setuptools>=45.0",
         "coloredlogs",
-        "gitlab",
+        "python-gitlab",
     ],
     classifiers=[
         "Development Status :: 1 - Planning",
