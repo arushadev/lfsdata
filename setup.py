@@ -25,6 +25,7 @@ setup(
         "Development Status :: 1 - Planning",
         "Programming Language :: Python :: 3.0",
         "Topic :: Utilities",
+        "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
     ],
     python_requires='>=3.11',
 )
