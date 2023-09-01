@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf8") as fh:
     long_description = fh.read()
 setup(
     name="lfsdata",
-    version="0.0.1",
+    version="0.0.2",
     author="Arusha Developers",
     author_email="info@arusha.dev",
     maintainer="Hamed Khademi Khaledi",
@@ -19,12 +19,13 @@ setup(
     install_requires=[
         "setuptools>=45.0",
         "coloredlogs",
-        "gitlab",
+        "python-gitlab",
     ],
     classifiers=[
         "Development Status :: 1 - Planning",
         "Programming Language :: Python :: 3.0",
         "Topic :: Utilities",
+        "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
     ],
     python_requires='>=3.11',
 )
